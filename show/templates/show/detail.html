@@ -1,0 +1,16 @@
+{% extends "master_template_detail.html" %}
+
+{% load static %}
+
+{% block isi %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <h3 class="my-3">{{ result.title }}</h3>
+            <p>{{ result.body }}</p>
+        </div>
+
+    </div>
+</div>
+{% endblock isi %}
