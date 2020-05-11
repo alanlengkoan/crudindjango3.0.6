@@ -1,0 +1,52 @@
+{% include "layout/head.html" %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Beranda</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% for link, name in menu %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{link}}">{{name}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="=row">
+        <div class="col-lg-12">
+            <h2>{{ halaman }}</h2>
+
+            <form action="upd_post" method="post">
+
+                <!-- begin:: untuk token -->
+                {% csrf_token %}
+                <!-- end:: untuk token -->
+
+                <!-- begin:: untuk id -->
+                <input type="hidden" name="inp_id" value="{{ result.id }}">
+                <!-- end:: untuk id -->
+
+                <div class="form-group">
+                    <label for="judul">Judul</label>
+                    <input type="text" class="form-control" id="judul" name="inp_judul" value="{{ result.title }}">
+                </div>
+                <div class="form-group">
+                    <label for="isi">Isi</label>
+                    <input type="text" class="form-control" id="isi" name="inp_isi" value="{{ result.body }}">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success btn-sm" name="ubah" value="Ubah">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include "layout/foot.html" %}
