@@ -13,6 +13,7 @@ def index(request):
             ['/tentang', 'Tentang'],
             ['/kontak', 'Kontak'],
             ['/show', 'Show'],
+            ['/admin/login', 'Login'],
         ],
     }
     return render(request, 'index.html', data)
@@ -27,6 +28,7 @@ def tentang(request):
             ['/tentang', 'Tentang'],
             ['/kontak', 'Kontak'],
             ['/show', 'Show'],
+            ['/admin/login', 'Login'],
         ],
     }
     return render(request, 'index.html', data)
@@ -41,6 +43,7 @@ def kontak(request):
             ['/tentang', 'Tentang'],
             ['/kontak', 'Kontak'],
             ['/show', 'Show'],
+            ['/admin/login', 'Login'],
         ],
     }
     return render(request, 'index.html', data)
