@@ -4,8 +4,13 @@ from django.http import HttpResponse
 from django.shortcuts import render
 # untuk redirect
 from django.shortcuts import redirect
+# untuk conection
+from django.db import connection
 # untuk mengambil semua models
 from . import models
+
+# variabel global
+cursor = connection.cursor()
 
 # untuk halaman index
 def index(request):
@@ -45,7 +50,10 @@ def detail(request, id):
 # untuk halaman lihat data
 def lihat(request):
     # untuk mengambil semua data
-    result = models.Tampil.objects.all()
+    # result = models.Tampil.objects.all()
+    
+    sql = 'SELECT * FROM show_tampil'
+    result = models.Tampil.objects.raw(sql)
 
     data = {
         'title': 'Lihat data',
@@ -109,18 +117,26 @@ def upd(request, id):
 def upd_post(request):
 
     if request.method == 'POST':
-        id = request.POST['inp_id']
-        
-        tampil = models.Tampil.objects.get(id=id)
-        tampil.title = request.POST['inp_judul']
-        tampil.body = request.POST['inp_isi']
-        tampil.save()
+        # tampil = models.Tampil.objects.get(id=id)
+        # tampil.save()
+      
+        id    = request.POST['inp_id']
+        judul = request.POST['inp_judul']
+        isi   = request.POST['inp_isi']
+
+        global cursor
+        sql = "UPDATE show_tampil SET title=%s, body=%s WHERE id=%s"
+        cursor.execute(sql, [judul, isi, id])
     
     return redirect('/show/lihat/')
 
 # untuk proses hapus
 def trush(request, id):
-    models.Tampil.objects.get(id=id).delete()
+    # models.Tampil.objects.get(id=id).delete()
+
+    sql = "DELETE FROM show_tampil WHERE id=%s"
+    global cursor
+    cursor.execute(sql, [id])
     
     return redirect('/show/lihat/')
 
